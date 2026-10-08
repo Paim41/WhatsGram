@@ -19,8 +19,10 @@ subprojects {
     project.evaluationDependsOn(":app")
     // desktop_drop 0.6.1 declares API 33 but its AndroidX dependencies need 36.
     if (project.name == "desktop_drop") {
-        project.extensions.configure<com.android.build.gradle.LibraryExtension> {
-            compileSdk = 36
+        project.plugins.withId("com.android.library") {
+            project.extensions.configure<com.android.build.api.variant.LibraryAndroidComponentsExtension> {
+                finalizeDsl { it.compileSdk = 36 }
+            }
         }
     }
 }

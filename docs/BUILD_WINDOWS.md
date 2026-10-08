@@ -23,3 +23,5 @@ Distribute the entire `build/windows/x64/runner/Release/` directory or `dist/Wha
 The window is resizable. Closing it quits the process and stops message reception. Tray mode is not implemented. Credential-bearing binaries are local artifacts; source control excludes them.
 
 Native build prerequisites may take substantial time and disk space to download. Errors are propagated by the scripts rather than being treated as successful builds. The current verification result is recorded in `VERIFICATION.md`.
+
+If MSVC reports missing files under `windows/flutter/ephemeral/cpp_client_wrapper`, stop the build and restore that generated directory from the matching Flutter SDK's `bin/cache/artifacts/engine/windows-x64/cpp_client_wrapper`. Use one consistent short project path for subsequent builds. This was necessary on the original workstation after regenerating the build directory.
