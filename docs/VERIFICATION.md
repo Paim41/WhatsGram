@@ -12,6 +12,7 @@ This is an implemented native Flutter client for Android and Windows. It is not 
 - Screenshots under `docs/images/settings-*.png` render the real settings widgets with synthetic account data, not a live Telegram account.
 - See [DEVICE_GUIDE.md](DEVICE_GUIDE.md) for installation, pairing and same-account device behavior.
 - Windows Release and Android development packages built as version 0.1.1+2. Android packaging excludes unused 32-bit plugin libraries so its ABI list matches the two supported architectures.
+- Optimized per-ABI Android builds replace the combined debug download: approximately 71 MiB ARM64 and 76.5 MiB x86-64 versus 243 MiB debug. Both use release compilation and retain TDLib and media libraries. APK signatures were verified against the original development certificate for update compatibility. These packages have not been exercised on a physical Android device in this workspace.
 
 ## Verified in this workspace
 

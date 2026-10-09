@@ -50,6 +50,8 @@ keyPassword=YOUR_PASSWORD
 
 The script requires both native libraries, a local credential file, and explicit release signing configuration. Gradle does not silently substitute debug signing for Release. APKs are written to `build/app/outputs/flutter-apk/`.
 
+For a smaller local development package, run `scripts/build-android-development.ps1`. It builds optimized Release code into separate ARM64 and x86-64 APKs and explicitly opts into the existing development signing key when owner release keys are absent. This avoids shipping Flutter's debugging runtime and a second CPU architecture in the phone download. The opt-in does not change normal release-signing behavior or make the package suitable for production distribution.
+
 Android exports use the system document picker / Storage Access Framework. Automatic export retains a user-chosen directory URI permission. There is no broad storage permission or silent gallery export. Backup and device transfer exclude app data and sessions. Microphone and notification permissions are requested at the feature boundary.
 
 Without a push service or optional foreground service, reliable reception is limited to the running app and OS lifecycle conditions. Force-stop/process death prevents immediate local notification delivery. Reopen to restore the session and reconcile settings. See `VERIFICATION.md` for what was actually built and tested.

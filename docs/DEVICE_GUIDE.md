@@ -3,7 +3,7 @@
 ## Install this update
 
 - **Windows:** quit WhatsGram, extract the entire new Windows ZIP into a new folder, then run `whatsgram.exe`. Keep all DLLs and the `data` folder beside it. Your session is stored in your Windows user profile, not in the extracted program folder.
-- **Android:** open the new development APK on your phone and install it over the existing WhatsGram app. Do not uninstall first, because uninstalling removes local app data. Updates require the same signing key; the development packages built on this workstation use its existing debug key. The phone may cache the old launcher icon briefly.
+- **Android:** use the optimized **arm64** APK for a compatible 64-bit Android phone. The **x86_64** APK is for compatible Intel devices/emulators. Install it over the existing WhatsGram app. Do not uninstall first, because uninstalling removes local app data. Updates require the same signing key; the development packages built on this workstation use its existing debug key. The phone may cache the old launcher icon briefly.
 
 ## Sign in
 
@@ -31,4 +31,4 @@ You can sign into the same account independently on Android and Windows. Do not 
 - Automatic media saving starts off. Select a destination folder and media types on each device. Windows currently cannot determine network cost, so turn off **Only on an unmetered connection** if you deliberately want automatic exports there.
 - If shared selections seem delayed, connect both devices and choose **Settings → Workspace → Reconcile now**. Joining a workspace does not join its selected groups automatically.
 
-These packages are for development testing. Android uses debug signing; neither platform has completed the full two-account acceptance checklist in [TESTING.md](TESTING.md).
+These packages are for development testing. Android uses optimized release code with explicit development signing, not a production signing identity. Neither platform has completed the full two-account acceptance checklist in [TESTING.md](TESTING.md). Installed size and Telegram's downloaded cache will exceed the compressed download size; use Media storage settings to manage cache retention.
