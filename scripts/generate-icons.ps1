@@ -1,3 +1,4 @@
+param([switch]$MobileOnly)
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
 $root = Split-Path $PSScriptRoot -Parent
@@ -21,6 +22,11 @@ function Get-IconPng([int]$Size, [double]$Padding = 0.10) {
     return ,$bytes
 }
 try {
+    $mobileSource = Join-Path $root 'assets\branding\android_launcher.png'
+    if (Test-Path $mobileSource) {
+        $original.Dispose()
+        $original = [System.Drawing.Image]::FromFile($mobileSource)
+    }
     $densities = @{mdpi=48;hdpi=72;xhdpi=96;xxhdpi=144;xxxhdpi=192}
     foreach ($entry in $densities.GetEnumerator()) {
         $directory = Join-Path $root "android\app\src\main\res\mipmap-$($entry.Key)"
@@ -30,6 +36,9 @@ try {
     $foreground = Join-Path $root 'android\app\src\main\res\drawable-nodpi'
     New-Item -ItemType Directory -Path $foreground -Force | Out-Null
     [System.IO.File]::WriteAllBytes((Join-Path $foreground 'launcher_foreground.png'), (Get-IconPng 432 0.20))
+    if ($MobileOnly) { Write-Output 'Updated Android launcher icons only.'; return }
+    $original.Dispose()
+    $original = [System.Drawing.Image]::FromFile($source)
     $sizes = @(16,24,32,48,64,128,256)
     $pngs = @($sizes | ForEach-Object { ,(Get-IconPng $_ 0.04) })
     $icon = Join-Path $root 'windows\runner\resources\app_icon.ico'

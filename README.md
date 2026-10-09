@@ -37,6 +37,7 @@ These are renders of the actual welcome screen, before Telegram sign-in.
 
 ## Documentation
 
+- [Phone and Windows usage guide](docs/DEVICE_GUIDE.md)
 - [Setup and credentials](docs/SETUP.md)
 - [Windows native build and complete release bundle](docs/BUILD_WINDOWS.md)
 - [Android native build and release signing](docs/BUILD_ANDROID.md)

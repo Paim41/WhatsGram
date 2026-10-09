@@ -2,6 +2,17 @@
 
 This is an implemented native Flutter client for Android and Windows. It is not a web application, and live Telegram acceptance is still required.
 
+## 0.1.1 interface update
+
+- Settings alone received glass-style grouped cards, a 920-pixel desktop content limit, clearer spacing, and separate field labels. Appearance choices are System, Light and Dark.
+- Media options use fixed-width responsive cells and a permanently reserved icon slot. Selection no longer changes the layout height. Layout checks cover widths 360, 390 and 1440, including 150% text size at 360.
+- Switching tabs clears the previous conversation and read target. Groups / Topics keeps its group scope, and opening a group no longer forces the Chats tab. A desktop navigation regression test covers chat → groups → settings.
+- The supplied circular artwork is used only for Android launcher assets. The in-app logo and Windows icon are unchanged.
+- 29 tests passed in the preview-enabled suite, including screenshot export; static analysis passed. The normal suite skips the optional welcome screenshot test.
+- Screenshots under `docs/images/settings-*.png` render the real settings widgets with synthetic account data, not a live Telegram account.
+- See [DEVICE_GUIDE.md](DEVICE_GUIDE.md) for installation, pairing and same-account device behavior.
+- Windows Release and Android development packages built as version 0.1.1+2. Android packaging excludes unused 32-bit plugin libraries so its ABI list matches the two supported architectures.
+
 ## Verified in this workspace
 
 - Flutter 3.47.6 / Dart 3.13.5, pinned dependencies and pinned TDLib 1.8.67 schema.

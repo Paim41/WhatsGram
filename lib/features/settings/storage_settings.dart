@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../app/controller.dart';
 import '../../ui/shared/branding.dart';
+import '../../ui/shared/settings_card.dart';
 
 class StorageSettings extends StatelessWidget {
   const StorageSettings({super.key, required this.app});
@@ -16,6 +17,7 @@ class StorageSettings extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text('Media storage', style: Theme.of(context).textTheme.titleLarge),
+        const SizedBox(height: 12),
         const Text(
           'Previews use app-private cache. Exported media is separate from the encrypted TDLib database.',
         ),
@@ -47,28 +49,80 @@ class StorageSettings extends StatelessWidget {
             }),
           ),
         ),
-        Wrap(
-          spacing: 8,
-          children: ['photo', 'video', 'document', 'audio']
-              .map(
-                (category) => FilterChip(
-                  label: Text(category),
-                  selected: prefs.categories.contains(category),
-                  onSelected: (selected) => runAction(context, () async {
-                    selected
-                        ? prefs.categories.add(category)
-                        : prefs.categories.remove(category);
-                    await app.savePreferences();
-                  }),
-                ),
-              )
-              .toList(),
+        const SizedBox(height: 16),
+        Text('Media types', style: Theme.of(context).textTheme.labelLarge),
+        const SizedBox(height: 10),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final scale = MediaQuery.textScalerOf(context).scale(1);
+            final columns = constraints.maxWidth >= 560 * scale
+                ? 4
+                : constraints.maxWidth >= 260 * scale
+                ? 2
+                : 1;
+            final width = (constraints.maxWidth - (columns - 1) * 10) / columns;
+            return Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: ['photo', 'video', 'document', 'audio'].map((category) {
+                final selected = prefs.categories.contains(category);
+                return SizedBox(
+                  width: width,
+                  child: Semantics(
+                    selected: selected,
+                    child: OutlinedButton(
+                      key: ValueKey('media-$category'),
+                      style: OutlinedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 16,
+                        ),
+                        backgroundColor: selected
+                            ? Theme.of(
+                                context,
+                              ).colorScheme.primary.withValues(alpha: .12)
+                            : Colors.transparent,
+                        side: BorderSide(
+                          color: Theme.of(context).colorScheme.primary
+                              .withValues(alpha: selected ? .6 : .2),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      onPressed: () => runAction(context, () async {
+                        selected
+                            ? prefs.categories.remove(category)
+                            : prefs.categories.add(category);
+                        await app.savePreferences();
+                      }),
+                      child: Row(
+                        children: [
+                          Icon(
+                            selected
+                                ? Icons.check_circle
+                                : Icons.circle_outlined,
+                            size: 18,
+                          ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: Text(
+                              '${category[0].toUpperCase()}${category.substring(1)}',
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }).toList(),
+            );
+          },
         ),
-        DropdownButtonFormField<int>(
-          initialValue: prefs.maximumBytes,
-          decoration: const InputDecoration(
-            labelText: 'Maximum automatic export size',
-          ),
+        const SizedBox(height: 12),
+        SettingsField<int>(
+          value: prefs.maximumBytes,
+          label: 'Maximum automatic export size',
           items: [5, 20, 50, 100, 500]
               .map(
                 (mb) => DropdownMenuItem(
@@ -97,9 +151,10 @@ class StorageSettings extends StatelessWidget {
         ),
         if (manager.error != null) Text(manager.error!),
         Text('${manager.pending.length} automatic exports pending'),
-        DropdownButtonFormField<int>(
-          initialValue: prefs.retentionDays,
-          decoration: const InputDecoration(labelText: 'Cache retention'),
+        const SizedBox(height: 12),
+        SettingsField<int>(
+          value: prefs.retentionDays,
+          label: 'Cache retention',
           items: [7, 30, 90]
               .map(
                 (days) =>

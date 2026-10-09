@@ -127,7 +127,12 @@ class _WhatsGramShellState extends State<WhatsGramShell> {
     }
     setState(() {
       selected = conversation;
-      page = 0;
+      if (conversation.target.kind == 'participant_pair') {
+        page = 0;
+      } else if (page == 2) {
+        page = 1;
+        filter = 'Groups';
+      }
     });
   }
 
@@ -345,7 +350,19 @@ class _WhatsGramShellState extends State<WhatsGramShell> {
                   ? Row(
                       children: [
                         NavigationRail(
+                          key: ValueKey('rail-$page'),
                           selectedIndex: page,
+                          indicatorColor: Theme.of(
+                            context,
+                          ).colorScheme.primary.withValues(alpha: .18),
+                          unselectedIconTheme: IconThemeData(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                          ),
+                          selectedIconTheme: IconThemeData(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                           onDestinationSelected: navigate,
                           labelType: NavigationRailLabelType.all,
                           destinations: destinations
@@ -387,6 +404,11 @@ class _WhatsGramShellState extends State<WhatsGramShell> {
   }
 
   void navigate(int value) => setState(() {
+    if (page != value) {
+      selected = null;
+      widget.app.visible = null;
+      query = '';
+    }
     page = value;
     if (value == 1) {
       filter = 'Groups';
@@ -397,6 +419,7 @@ class _WhatsGramShellState extends State<WhatsGramShell> {
   });
   List<Conversation> _filtered(AppController app) {
     final result = conversations.where((c) {
+      if (page == 1 && c.target.kind == 'participant_pair') return false;
       if (!c.title.toLowerCase().contains(query)) return false;
       if (filter == 'Topics' && c.topicId == null) return false;
       if (filter == 'Groups' && c.target.kind == 'participant_pair') {
