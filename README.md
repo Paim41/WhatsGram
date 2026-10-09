@@ -181,7 +181,7 @@ See the [device guide](docs/DEVICE_GUIDE.md) and [pairing guide](docs/PAIRING.md
 
 *Your Telegram conversations, with a shared selection workspace across Android and Windows.*
 
-**Unofficial Telegram client · Telegram Blue & Ice White · Built with Flutter**
+**Unofficial Telegram client | Telegram Blue & Ice White | Built with Flutter**
 
 </div>
 
