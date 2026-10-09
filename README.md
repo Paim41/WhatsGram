@@ -12,12 +12,12 @@
 <img src="https://img.shields.io/badge/TDLib-1.8.67-2489D4?style=for-the-badge&logo=telegram&logoColor=white" alt="TDLib 1.8.67" />
 <img src="https://img.shields.io/badge/Release-0.1.1%20Preview-F4F8FC?style=for-the-badge&labelColor=2489D4" alt="Release 0.1.1 preview" />
 
-<br /><br />
+<br />
 
-<a href="https://github.com/Paim41/WhatsGram/releases/download/v0.1.1/WhatsGram-0.1.1-windows-x64.zip"><img src="https://img.shields.io/badge/Download-Windows%20ZIP-2489D4?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows ZIP" /></a>
-<a href="https://github.com/Paim41/WhatsGram/releases/download/v0.1.1/WhatsGram-0.1.1-android-arm64.apk"><img src="https://img.shields.io/badge/Download-Android%20APK-2489D4?style=for-the-badge&logo=android&logoColor=white" alt="Download Android ARM64 APK" /></a>
+<a href="https://github.com/Paim41/WhatsGram/releases/download/v0.1.1/WhatsGram-0.1.1-windows-x64.zip"><img src="https://img.shields.io/badge/Download-Windows%20ZIP-EC4134?style=for-the-badge&logo=windows&logoColor=white" alt="Download Windows ZIP" /></a>
+<a href="https://github.com/Paim41/WhatsGram/releases/download/v0.1.1/WhatsGram-0.1.1-android-arm64.apk"><img src="https://img.shields.io/badge/Download-Android%20APK-75BC54?style=for-the-badge&logo=android&logoColor=white" alt="Download Android ARM64 APK" /></a>
 
-[All releases](https://github.com/Paim41/WhatsGram/releases) | [Installation guide](docs/DEVICE_GUIDE.md) | [Verification status](docs/VERIFICATION.md)
+[All Releases](https://github.com/Paim41/WhatsGram/releases) | [Installation Guide](docs/DEVICE_GUIDE.md) | [Verification Status](docs/VERIFICATION.md)
 
 </div>
 
